@@ -116,6 +116,16 @@ update s i v x update s v y x  = if x == y then v else s x
  -- Has to be the same as fv_aexp but for Statments, which idk how sholuld look like
  
 fv_stm :: Stm -> [Var]
+fv_stm (Ass v a)    = rep( fv_stm(V v) ++ fv_stm(a))
+fv_stm  Skip        = []
+fv_stm (Comp s1 s2) = rep( fv_stm(s1) ++ fv_stm(s2))
+fv_stm (If b s1 s2) = rep( fv_stm(b) ++ fv_stm(s1) ++ fv_stm(s2))
+fv_stm (While b s)  = rep( fv_stm(s) ++ fv_stm(s))
+fv_stm (Read v)     = rep( fv_stm(v))
+fv_stm (WriteA a)   = rep( fv_stm(a))
+fv_stm (WriteB b)   = rep( fv_stm(b))
+fv_stm (WriteS s)   = []
+fv_stm (WriteLn l)  = []
 
 ---------------------------------------------------------------
 -- Part C)
@@ -138,6 +148,30 @@ writeln;
 ---------------------------------------------------------------}
 
 fac :: Stm
+fac = Comp (WriteS "Factorial calculator") 
+     (Comp (WriteLn ) 
+     	   (Comp (WriteS "Enter number: " ) 
+     		     (Comp (Read "x" ) 
+     		     	   (Comp (WriteS "Factorial of " ) 
+     		     	   		 (Comp (WriteA ( V "x" ) ) 
+     		     	   		 	   (Comp (WriteS " is " ) 
+     		     	   		 	   	     (Comp (Ass ( "y" ) ( N 1 ) ) 
+     		     	   		 	   	      	   (Comp (While (Neg (Eq (V "x" ) (N 1 ) )) 
+     		     	   		 	   	      		 			(Comp (Ass ( "y" ) (Mult (V "y" ) (V "x" ) ) ) 
+     		     	   		 	   	      		 				  (Ass ( "x" ) (Sub (V "x" ) (N 1 ) )) 
+     		     	   		 	   	      		 			) 
+     		     	   		 	   	      		 	 ) 
+		     		     	   		 	   	      	 (Comp (WriteA (V "y" ) ) 
+		     		     	   		 	   	      	       (Comp (WriteLn ) (WriteLn ) )
+		     		     	   		 	   	      	 ) 
+     		     	   		 	   	      	   ) 
+     		     	   		 	   	      ) 
+     		     	   		 	   ) 
+     		     	   		 ) 
+     		     	   ) 
+     		     ) 
+     	   ) 
+     )
 
 ---------------------------------------------------------------
 -- Part D)
@@ -166,6 +200,36 @@ fac :: Stm
 --------------------------------------------------------------
 
 pow :: Stm
+pow = Comp (WriteS "Exponential calculator")
+ 	 (Comp (WriteLn)
+ 	 	   (Comp (WriteS "Enter base: "))
+ 	 	   (Comp (Read "base")
+ 	 	   		 (Comp (If (Le (N1 ) (V "base")))
+ 	 	   		 	   (Comp (WriteS "Enter exponent: " )
+ 	 	   		 	   		 (Comp (Read "exponent")
+ 	 	   		 	   		 	   (Comp (Ass ("num") (N 1))
+ 	 	   		 	   		 	   		 (Comp (Ass ("count") (V "exponent"))
+ 	 	   		 	   		 	   		 	   (Comp (While (Le (N 1) (V "count"))
+ 	 	   		 	   		 	   		 	   				(Comp (Ass "num" (Mult (V "num") (V "base")))
+ 	 	   		 	   		 	   		 	   				)
+ 	 	   		 	   		 	   		 	   		 )
+ 	 	   		 	   		 	   		 	   )
+	 	 	   		 	   		 	   		   (Comp (WriteA (V "base"))
+	 	 	   		 	   		 	   		 	     (Comp (WriteS " raised to the power of ")
+	 	 	   		 	   		 	   		 	   	  	   (Comp (WriteA (V "exponent"))
+	 	 	   		 	   		 	   		 	   		 	     (Comp (WriteS " is ")
+	 	 	   		 	   		 	   		 	   		 	   		   (WriteA (V "num"))
+	 	 	   		 	   		 	   		 	   		 	     )
+	 	 	   		 	   		 	   		 	   		   )
+	 	 	   		 	   		 	   		 	     )
+	 	 	   		 	   		 	   		   )
+ 	 	   		 	   		 	   		  )
+ 	 	   		 	   		 	   )
+ 	 	   		 	   		 )
+ 	 	   		 	   )
+ 	 	   		 )
+ 	 	   )
+ 	 )
 
 ---------------------------------------------------------------
 -- Part E)
