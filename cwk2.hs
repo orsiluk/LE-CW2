@@ -204,7 +204,7 @@ pow = Comp (WriteS "Exponential calculator")
  	 (Comp (WriteLn)
  	 	   (Comp (WriteS "Enter base: "))
  	 	   (Comp (Read "base")
- 	 	   		 (Comp (If (Le (N1 ) (V "base")))
+ 	 	   		 (Comp (If (Le (N1 ) (V "base"))
  	 	   		 	   (Comp (WriteS "Enter exponent: " )
  	 	   		 	   		 (Comp (Read "exponent")
  	 	   		 	   		 	   (Comp (Ass ("num") (N 1))
@@ -227,6 +227,11 @@ pow = Comp (WriteS "Exponential calculator")
  	 	   		 	   		 	   )
  	 	   		 	   		 )
  	 	   		 	   )
+                            ( Comp (WriteS "Invalid base " ) 
+                                   (WriteA (V "base" ) ) 
+                            )
+                           )
+                           (WriteLn) 
  	 	   		 )
  	 	   )
  	 )
@@ -238,10 +243,25 @@ pow = Comp (WriteS "Exponential calculator")
 -- s_ds p (i,o,s) returns the result of semantically evaluating 
 -- program p in state s with input list i and output list o.
 ---------------------------------------------------------------
+bios_t :: Bexp -> IOState -> T
+bios_t b (i, o, s) = b_val b s
 
 s_ds :: Stm -> IOState -> IOState
-
+s_ds  Skip (i, o, s)            = (i, o, s) 
+s_ds (Ass v a ) (i, o, s)       = (i , o, s2) where s2 = update s (a_val a s) v 
+s_ds (Comp s1 s2 ) (i, o, s)    = ((s_ds s2).(s_ds s1)) ios
+s_ds (If b s1 s2) (i, o, s)     = cond (b_val b, s_ds s1, s_ds s2) s
+s_ds (WriteA a1) (i, o, s)      = (i, o ++ [ show (a_val a1 s) ], s)
+s_ds (WriteB b1) (i, o, s)      = (i, o ++ [ show (b_val b1 s) ], s)
+s_ds (WriteS s1) (i, o, s)      = (i, o ++ [ s1 ], s)
+s_ds  WriteLn (i, o, s)         = (i, o ++ [ "\n" ], s)
+s_ds (While b s1) (i, o, s)     = fix f ios where f g = cond (bios_t b, (g.(s_ds s1)), s_ds (Skip)) 
+s_ds (Read v) (i, o, s)         = (i',o',s') where s' = update s (head i) variables
+                                                   i' = tail i 
+                                                   o' = o ++ ["<" ++ show(head i) ++ ">"]
+s_ds (If b s1 s2) (i, o, s)     = cond ( bios_t b , s_ds s1 , s_ds s2 ) (i, o, s)
 ---------------------------------------------------------------
+
 -- Part F)
 --
 -- Write a function eval with the following signature such that 
@@ -255,6 +275,21 @@ s_ds :: Stm -> IOState -> IOState
 eval :: Stm -> IOState -> (Input, Output, [Var], [Num])
 
 
+input_val :: IOState -> Input
+input_val (i, o, s) = i 
+
+output_val :: IOState -> Output
+output_val (i, o, s) = o 
+
+cState :: IOState -> State --Gets current state
+cState (i, o, s) = s 
+
+intToNum :: Integer -> Num
+intToNum i = i
+
+fState :: [Var] -> IOState -> [Num]
+fState [] (i, o, s) = []
+fState (x:xs) (i, o, s) = [ (a_val (V x) s) )] ++ ( fState (xs) (i, o, s)) 
 ---------------------------------------------------------------
 -- Remove duplicates
 ---------------------------------------------------------------
