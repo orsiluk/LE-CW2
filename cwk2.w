@@ -28,31 +28,58 @@
 
 { head(IN)=n }
 
-write('Factorial calculator'); writeln;
+write('Factorial calculator'); 
+{ OUT = append(OUT, ['Factorial calculator']) }
+
+writeln;
+{ OUT = append(OUT, [’\n’]) }
 
 write('Enter number: ');
+{ OUT = append(OUT, ['Enter number: ']) }
 
+{n = head(IN) }
 read(x);
+{ x = n }
 
-write('Factorial of '); write(x); write(' is ');
+write('Factorial of '); 
+{ OUT = append(OUT, ['Factorial of ']) }
+
+write(x); 
+{ OUT = append(OUT, [n]) }
+
+write(' is ');
+{ OUT = append(OUT, [' is ']) }
 
 y := 1;
+{ y=1 & x=n & n>0 } 
+{ n!=yx! & x>0 } 
 
 while !(x=1) do (
-
+  
+  { n!=yx! & x>0 }
+  { n!=(y*x)(x-1)! & (x-1)>0 }
+  
   y := y * x;
+  { n!=y(x-1)! & (x-1)>0  }
 
   x := x - 1
-
+  { n!=yx! & x>0 }
 );
+{ n!=yx! & x>0 }
+{ y=n!}
 
+{ append(OUT,[y]) = append(OUT, [n!]) }
 write(y);
+{ OUT = append(OUT, [n!]) }
 
+{ append(OUT,[’\n’]) = append(OUT,[n!,_]) }
 writeln;
+{ OUT=append(OUT,[n!,_]) }
 
+{ append(OUT,[’\n’]) = append(OUT,[n!,_,_]) }
 writeln;
+{ OUT=append(OUT,[n!,_,_]) }
 
-{ OUT=append(_,[n!,_,_]) }
 
 
 {------------------------------------------------------------
@@ -64,37 +91,66 @@ writeln;
  ------------------------------------------------------------}
 
 write('Exponential calculator'); writeln;
+{ OUT = append(OUT, ['Exponential calculator']) }
 
 write('Enter base: ');
+{ OUT = append(OUT, ['Enter base: ']) }
 
+{n = head(IN) }
 read(base);
+{ base = n }
 
 if 1 <= base then (
+  
+   write('Enter exponent: ');
+  { OUT = append(OUT, ['Enter exponent: ']) } 
 
-  write('Enter exponent: ');
-
+  {n = head(IN) }
   read(exponent);
+  { exponent = n }
 
   num := 1;
 
   count := exponent;
 
+  {num=1 & count=exponent & count>0 }
+
+  {base^exponent=num*base & 1<=count}
+  {base^exponent=num*base & 1<=count}
   while 1 <= count do (
 
+    {base^exponent=num*base & 1<=count}
+    {base^exponent=num*(base^(exponent-1)) & 1<=count}
     num := num * base;
 
+    {base^exponent=num*(base^(exponent-1)) & 1<=count}
     count := count - 1
 
   );
+  {base^exponent=num*base & 1<=count}
+  {base^exponent = count}
+  
+  write(base); 
+  { OUT = append(OUT, [base]) } 
 
-  write(base); write(' raised to the power of '); write(exponent); write(' is ');
+  write(' raised to the power of '); 
+  { OUT = append(OUT, [' raised to the power of ']) } 
+
+  write(exponent); 
+  { OUT = append(OUT, [exponent]) } 
+  
+  write(' is ');
+  { OUT = append(OUT, [' is ']) }  
 
   write(num)
-
+  { OUT = append(OUT, [num]) } 
 ) else (
+   write('Invalid base '); 
+  { OUT = append(OUT, ['Invalid base ']) } 
 
-  write('Invalid base '); write(base)
-
+  write(base)
+  { OUT = append(OUT, [base]) } 
 );
 
 writeln
+{ OUT = append(OUT, [’\n’]) }

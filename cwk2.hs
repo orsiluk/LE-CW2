@@ -105,7 +105,7 @@ fix f = f (fix f)
 ---------------------------------------------------------------
 -- Ezt nem ertem honnan szedjuk
 update :: State -> Z -> Var -> State
-update s i v x update s v y x  = if x == y then v else s x  
+update s i v x   = if x == v then i else s x  
 
 ---------------------------------------------------------------
 -- Part B))
@@ -116,16 +116,16 @@ update s i v x update s v y x  = if x == y then v else s x
  -- Has to be the same as fv_aexp but for Statments, which idk how sholuld look like
  
 fv_stm :: Stm -> [Var]
-fv_stm (Ass v a)    = rep( fv_stm(V v) ++ fv_stm(a))
+fv_stm (Ass v a)    = rep( fv_aexp(V v) ++ fv_aexp(a))
 fv_stm  Skip        = []
 fv_stm (Comp s1 s2) = rep( fv_stm(s1) ++ fv_stm(s2))
-fv_stm (If b s1 s2) = rep( fv_stm(b) ++ fv_stm(s1) ++ fv_stm(s2))
-fv_stm (While b s)  = rep( fv_stm(s) ++ fv_stm(s))
-fv_stm (Read v)     = rep( fv_stm(v))
-fv_stm (WriteA a)   = rep( fv_stm(a))
-fv_stm (WriteB b)   = rep( fv_stm(b))
+fv_stm (If b s1 s2) = rep( fv_bexp(b) ++ fv_stm(s1) ++ fv_stm(s2))
+fv_stm (While b s)  = rep( fv_bexp(b) ++ fv_stm(s))
+fv_stm (Read v)     = rep( fv_aexp( V v))
+fv_stm (WriteA a)   = rep( fv_aexp(a))
+fv_stm (WriteB b)   = rep( fv_bexp(b))
 fv_stm (WriteS s)   = []
-fv_stm (WriteLn l)  = []
+fv_stm (WriteLn)  = []
 
 ---------------------------------------------------------------
 -- Part C)
@@ -146,6 +146,11 @@ write(y);
 writeln;
 writeln;
 ---------------------------------------------------------------}
+
+test :: Stm
+test = (Comp (Comp (Comp (Comp (Comp (Comp (Comp (Comp (Comp (Comp (Comp (WriteS "Factorial calculator") WriteLn) (WriteS "Enter number: ")) (Read "x")) (WriteS "Factorial of ")) (WriteA (V "x"))) (WriteS " is ")) (Ass "y" (N 1))) (While (Neg (Eq (V "x") (N 1))) (Comp (Ass "y" (Mult (V "y") (V "x"))) (Ass "x" (Sub (V "x") (N 1)))))) (WriteA (V "y"))) WriteLn) WriteLn)
+
+
 
 fac :: Stm
 fac = Comp (WriteS "Factorial calculator") 
@@ -200,41 +205,43 @@ fac = Comp (WriteS "Factorial calculator")
 --------------------------------------------------------------
 
 pow :: Stm
-pow = Comp (WriteS "Exponential calculator")
- 	 (Comp (WriteLn)
- 	 	   (Comp (WriteS "Enter base: "))
- 	 	   (Comp (Read "base")
- 	 	   		 (Comp (If (Le (N1 ) (V "base"))
- 	 	   		 	   (Comp (WriteS "Enter exponent: " )
- 	 	   		 	   		 (Comp (Read "exponent")
- 	 	   		 	   		 	   (Comp (Ass ("num") (N 1))
- 	 	   		 	   		 	   		 (Comp (Ass ("count") (V "exponent"))
- 	 	   		 	   		 	   		 	   (Comp (While (Le (N 1) (V "count"))
- 	 	   		 	   		 	   		 	   				(Comp (Ass "num" (Mult (V "num") (V "base")))
- 	 	   		 	   		 	   		 	   				)
- 	 	   		 	   		 	   		 	   		 )
- 	 	   		 	   		 	   		 	   )
-	 	 	   		 	   		 	   		   (Comp (WriteA (V "base"))
-	 	 	   		 	   		 	   		 	     (Comp (WriteS " raised to the power of ")
-	 	 	   		 	   		 	   		 	   	  	   (Comp (WriteA (V "exponent"))
-	 	 	   		 	   		 	   		 	   		 	     (Comp (WriteS " is ")
-	 	 	   		 	   		 	   		 	   		 	   		   (WriteA (V "num"))
-	 	 	   		 	   		 	   		 	   		 	     )
-	 	 	   		 	   		 	   		 	   		   )
-	 	 	   		 	   		 	   		 	     )
-	 	 	   		 	   		 	   		   )
- 	 	   		 	   		 	   		  )
- 	 	   		 	   		 	   )
- 	 	   		 	   		 )
- 	 	   		 	   )
-                            ( Comp (WriteS "Invalid base " ) 
-                                   (WriteA (V "base" ) ) 
-                            )
-                           )
-                           (WriteLn) 
- 	 	   		 )
- 	 	   )
- 	 )
+pow = Comp (WriteS "Exponential calculator" ) 
+      (Comp (WriteLn ) 
+            (Comp (WriteS "Enter base: " ) 
+                  (Comp (Read "base" ) 
+                        (Comp (If (Le (N 1 ) (V "base" ) ) 
+                                  (Comp ( WriteS "Enter exponent: " ) 
+                                        (Comp (Read "exponent" ) 
+                                               (Comp (Ass ("num") ( N 1 ) ) 
+                                                     (Comp (Ass ( "count" ) (V "exponent" ) ) 
+                                                           (Comp (While (Le (N 1 ) (V "count" ) ) 
+                                                                         (Comp (Ass "num" (Mult (V "num" ) ( V "base" ) ) ) 
+                                                                               (Ass ("count" ) (Sub (V "count" ) ( N 1 ) ) ) 
+                                                                         )  
+                                                                  ) 
+                                                                 (Comp (WriteA (V "base" ) ) 
+                                                                       (Comp (WriteS " raised to the power of " ) 
+                                                                             (Comp (WriteA ( V "exponent" ) ) 
+                                                                                   (Comp (WriteS " is ") 
+                                                                                         (WriteA (V "num" ) ) 
+                                                                                   ) 
+                                                                             ) 
+                                                                       ) 
+                                                                 ) 
+                                                          ) 
+                                                    ) 
+                                              ) 
+                                        ) 
+                                  ) 
+                              (Comp (WriteS "Invalid base " ) 
+                                    (WriteA ( V "base" ) ) 
+                              ) 
+                          ) 
+                          (WriteLn) 
+                        ) 
+                  ) 
+            ) 
+      )
 
 ---------------------------------------------------------------
 -- Part E)
@@ -249,17 +256,16 @@ bios_t b (i, o, s) = b_val b s
 s_ds :: Stm -> IOState -> IOState
 s_ds  Skip (i, o, s)            = (i, o, s) 
 s_ds (Ass v a ) (i, o, s)       = (i , o, s2) where s2 = update s (a_val a s) v 
-s_ds (Comp s1 s2 ) (i, o, s)    = ((s_ds s2).(s_ds s1)) ios
-s_ds (If b s1 s2) (i, o, s)     = cond (b_val b, s_ds s1, s_ds s2) s
+s_ds (Comp s1 s2 ) (i, o, s)    = ((s_ds s2).(s_ds s1)) (i, o, s)
+s_ds (If b s1 s2) (i, o, s)     = cond ( bios_t b, s_ds s1, s_ds s2) (i, o, s)
 s_ds (WriteA a1) (i, o, s)      = (i, o ++ [ show (a_val a1 s) ], s)
 s_ds (WriteB b1) (i, o, s)      = (i, o ++ [ show (b_val b1 s) ], s)
 s_ds (WriteS s1) (i, o, s)      = (i, o ++ [ s1 ], s)
 s_ds  WriteLn (i, o, s)         = (i, o ++ [ "\n" ], s)
-s_ds (While b s1) (i, o, s)     = fix f ios where f g = cond (bios_t b, (g.(s_ds s1)), s_ds (Skip)) 
-s_ds (Read v) (i, o, s)         = (i',o',s') where s' = update s (head i) variables
+s_ds (While b s1) (i, o, s)     = fix f (i, o, s) where f g = cond (bios_t b, (g.(s_ds s1)), s_ds (Skip)) 
+s_ds (Read v) (i, o, s)         = (i',o',s') where s' = update s (head i) v
                                                    i' = tail i 
                                                    o' = o ++ ["<" ++ show(head i) ++ ">"]
-s_ds (If b s1 s2) (i, o, s)     = cond ( bios_t b , s_ds s1 , s_ds s2 ) (i, o, s)
 ---------------------------------------------------------------
 
 -- Part F)
@@ -273,7 +279,9 @@ s_ds (If b s1 s2) (i, o, s)     = cond ( bios_t b , s_ds s1 , s_ds s2 ) (i, o, s
 ---------------------------------------------------------------
 
 eval :: Stm -> IOState -> (Input, Output, [Var], [Num])
-
+eval stm ios = ( input_val( cState ), output_val( cState ), vs, fState vs cState)
+      where cState = s_ds stm ios
+            vs = fv_stm( stm )
 
 input_val :: IOState -> Input
 input_val (i, o, s) = i 
@@ -289,7 +297,7 @@ intToNum i = i
 
 fState :: [Var] -> IOState -> [Num]
 fState [] (i, o, s) = []
-fState (x:xs) (i, o, s) = [ (a_val (V x) s) )] ++ ( fState (xs) (i, o, s)) 
+fState (x:xs) (i, o, s) = [ (a_val (V x) s) ] ++ ( fState (xs) (i, o, s)) 
 ---------------------------------------------------------------
 -- Remove duplicates
 ---------------------------------------------------------------

@@ -1,0 +1,303 @@
+CAMLE Report : Orsolya Lukacs-Kisbandi (ol14474)
+------------------------------------------------
+
+For this coursework I have implemented all language features requested using Java language and antlr3. I also implemented some extra features.
+
+The compiler is run by "make" command using "Makefile". In "Makefile" any test can be included. The tests can also be run from the terminal using "./antlr3 camle nameOfTest.w".
+
+Implemented mandatory language features:
+----------------------------------------
+	- Variables and assignment
+	- Arithmetic expressions (+, -, *)
+	- read statements
+	- if and skip statements
+	- while loops
+	- Boolean expressions (true, false, !, &)
+
+Operators and reserved keywords
+
+	write 					(WRITE)       
+	writeline				(WRITELN)     
+	do						(DO)		    
+	else 					(ELSE)		
+	if 						(IF)			
+	then 					(THEN) 		
+	false 					(FALSE)		
+	true 					(TRUE)		
+	read 					(READ) 		
+	skip 					(SKIP) 		
+	while  					(WHILE) 
+	repeat 					(REPEAT)		
+	until 					(UNTIL)		
+	for 					(FOR)
+
+Identifiers
+
+	assignment           	(ASSIGNMENT) 	 
+	multiplication       	(MULTIPLY)	 
+	addition				(PLUS)		 
+	subtraction			(MINUS)		  
+	division 				(DEVIDE)
+	
+	comparison and booleans			
+		equals 				(EQUAL)		 	 
+		smaller or equal  	(SOREQUAL)	
+		bigger or equal 	(BOREQUAL) 		 
+		not 				(NOT)			 
+		and 				(AND)			  	
+		smaller				(SMALLER)		 
+		bigger 				(BIGGER)
+		exclusive or		(XOR)
+		not equals 			(NOTEQUAL)
+	
+Output from tests (sk 0..7 + extra provided on laguage engineering homepage) as required:
+------------------------------
+---testsk.ass ASSEMBLY BEGINS
+---testsk.ass ASSEMBLY ENDS
+---testsk.ass EXECUTION BEGINS
+hello world
+0
+123456789
+56
+---testsk.ass EXECUTION ENDS
+STATISTICS:
+  13 instructions generated
+  4 registers used
+  13 instructions executed
+
+
+---test0.ass ASSEMBLY BEGINS
+---test0.ass ASSEMBLY ENDS
+---test0.ass EXECUTION BEGINS
+28
+28
+52
+59yes
+---test0.ass EXECUTION ENDS
+STATISTICS:
+  101 instructions generated
+  53 registers used
+  334170 instructions executed
+
+
+---test1.ass ASSEMBLY BEGINS
+---test1.ass ASSEMBLY ENDS
+---test1.ass EXECUTION BEGINS
+10023
+10023
+76
+76
+---test1.ass EXECUTION ENDS
+STATISTICS:
+  22 instructions generated
+  9 registers used
+  22 instructions executed
+
+
+---test2.ass ASSEMBLY BEGINS
+---test2.ass ASSEMBLY ENDS
+---test2.ass EXECUTION BEGINS
+7
+-5
+28
+-91
+70
+---test2.ass EXECUTION ENDS
+STATISTICS:
+  17 instructions generated
+  6 registers used
+  17 instructions executed
+
+
+---test3.ass ASSEMBLY BEGINS
+---test3.ass ASSEMBLY ENDS
+---test3.ass EXECUTION BEGINS
+Enter a number: 2
+Enter a number: 7
+First is 2; second is 7
+---test3.ass EXECUTION ENDS
+STATISTICS:
+  17 instructions generated
+  5 registers used
+  17 instructions executed
+
+
+---test4.ass ASSEMBLY BEGINS
+---test4.ass ASSEMBLY ENDS
+---test4.ass EXECUTION BEGINS
+13
+5
+
+78bce
+---test4.ass EXECUTION ENDS
+STATISTICS:
+  111 instructions generated
+  35 registers used
+  80 instructions executed
+
+
+---test5.ass ASSEMBLY BEGINS
+---test5.ass ASSEMBLY ENDS
+---test5.ass EXECUTION BEGINS
+1
+WARNING: Disabled backward jump in    8: JMP 1  
+3
+WARNING: Disabled backward jump in   24: JMP 17  
+7
+WARNING: Disabled backward jump in   42: JMP 35  
+b
+WARNING: Disabled backward jump in   64: JMP 58  
+c
+WARNING: Disabled backward jump in   76: JMP 70  
+d
+WARNING: Disabled backward jump in   83: JMP 77  
+WARNING: Disabled backward jump in   84: JMP 65  
+---test5.ass EXECUTION ENDS
+STATISTICS:
+  86 instructions generated
+  30 registers used
+  67 instructions executed
+
+
+---test6.ass ASSEMBLY BEGINS
+---test6.ass ASSEMBLY ENDS
+---test6.ass EXECUTION BEGINS
+truefalsefalsetruetruefalsefalsefalsetruefalsefalsefalsefalse
+---test6.ass EXECUTION ENDS
+STATISTICS:
+  15 instructions generated
+  1 registers used
+  15 instructions executed
+
+
+---test7.ass ASSEMBLY BEGINS
+---test7.ass ASSEMBLY ENDS
+---test7.ass EXECUTION BEGINS
+Factorial calculator
+Enter number: 5
+Factorial of 5 is 120
+
+Exponential calculator
+Enter base: 3
+Enter exponent: 4
+3 raised to the power of 4 is 81
+---test7.ass EXECUTION ENDS
+STATISTICS:
+  78 instructions generated
+  31 registers used
+  160 instructions executed
+
+
+---extra2.ass ASSEMBLY BEGINS
+---extra2.ass ASSEMBLY ENDS
+---extra2.ass EXECUTION BEGINS
+Recommended parameters: size=28, rings=10
+Size: 28
+Number of rings: 10
+                                              9 9 9 9 9 9 9 9 9 9 9                                               
+                                      9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9                                       
+                                  9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9                                   
+                              9 9 9 9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9                               
+                          9 9 9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9                           
+                        9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9                         
+                    9 9 9 9 9 9 8 8 8 8 8 8 8 8 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9                     
+                  9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9 9 9                   
+                9 9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9 9                 
+              9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9               
+            9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9             
+            9 9 9 8 8 8 8 8 7 7 7 7 7 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 8 8 8 8 8 9 9 9             
+          9 9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 6 6 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9           
+        9 9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 6 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9         
+        9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9         
+      9 9 9 9 8 8 8 7 7 7 7 6 6 6 6 5 5 5 5 5 5 5 4 4 4 4 4 4 4 5 5 5 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9 9       
+      9 9 9 8 8 8 7 7 7 7 6 6 6 6 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9       
+    9 9 9 8 8 8 8 7 7 7 6 6 6 6 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 6 6 6 6 7 7 7 8 8 8 8 9 9 9     
+    9 9 9 8 8 8 7 7 7 7 6 6 6 5 5 5 5 4 4 4 4 4 4 3 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 6 6 6 7 7 7 7 8 8 8 9 9 9     
+  9 9 9 9 8 8 8 7 7 7 6 6 6 6 5 5 5 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 5 5 5 6 6 6 6 7 7 7 8 8 8 9 9 9 9   
+  9 9 9 8 8 8 7 7 7 7 6 6 6 5 5 5 5 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 7 7 7 7 8 8 8 9 9 9   
+  9 9 9 8 8 8 7 7 7 6 6 6 6 5 5 5 4 4 4 4 3 3 3 3 3 2 2 2 2 2 3 3 3 3 3 4 4 4 4 5 5 5 6 6 6 6 7 7 7 8 8 8 9 9 9   
+  9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 4 3 3 3 3 2 2 2 2 2 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9   
+9 9 9 8 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 5 4 4 4 3 3 3 2 2 2 2 1 1 1 1 1 2 2 2 2 3 3 3 4 4 4 5 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 3 2 2 2 1 1 1 1 1 1 1 2 2 2 3 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1 1 1 1 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1 0 0 0 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1 0 0 0 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1 0 0 0 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 2 2 2 1 1 1 1 1 1 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 3 2 2 2 1 1 1 1 1 1 1 2 2 2 3 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 5 4 4 4 3 3 3 2 2 2 2 1 1 1 1 1 2 2 2 2 3 3 3 4 4 4 5 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9 
+9 9 9 8 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 3 3 3 3 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 8 9 9 9 
+  9 9 9 8 8 8 7 7 7 6 6 6 5 5 5 4 4 4 4 3 3 3 3 2 2 2 2 2 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 6 6 6 7 7 7 8 8 8 9 9 9   
+  9 9 9 8 8 8 7 7 7 6 6 6 6 5 5 5 4 4 4 4 3 3 3 3 3 2 2 2 2 2 3 3 3 3 3 4 4 4 4 5 5 5 6 6 6 6 7 7 7 8 8 8 9 9 9   
+  9 9 9 8 8 8 7 7 7 7 6 6 6 5 5 5 5 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 7 7 7 7 8 8 8 9 9 9   
+  9 9 9 9 8 8 8 7 7 7 6 6 6 6 5 5 5 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 5 5 5 6 6 6 6 7 7 7 8 8 8 9 9 9 9   
+    9 9 9 8 8 8 7 7 7 7 6 6 6 5 5 5 5 4 4 4 4 4 4 3 3 3 3 3 3 3 4 4 4 4 4 4 5 5 5 5 6 6 6 7 7 7 7 8 8 8 9 9 9     
+    9 9 9 8 8 8 8 7 7 7 6 6 6 6 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 6 6 6 6 7 7 7 8 8 8 8 9 9 9     
+      9 9 9 8 8 8 7 7 7 7 6 6 6 6 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9       
+      9 9 9 9 8 8 8 7 7 7 7 6 6 6 6 5 5 5 5 5 5 5 4 4 4 4 4 4 4 5 5 5 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9 9       
+        9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9         
+        9 9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 6 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9         
+          9 9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 6 6 6 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9           
+            9 9 9 8 8 8 8 8 7 7 7 7 7 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 8 8 8 8 8 9 9 9             
+            9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9             
+              9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 7 7 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9               
+                9 9 9 9 9 8 8 8 8 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 9 9 9 9 9                 
+                  9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9 9 9                   
+                    9 9 9 9 9 9 8 8 8 8 8 8 8 8 7 7 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9                     
+                        9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9                         
+                          9 9 9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9                           
+                              9 9 9 9 9 9 9 9 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9                               
+                                  9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9                                   
+                                      9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9                                       
+                                              9 9 9 9 9 9 9 9 9 9 9                                               
+---extra2.ass EXECUTION ENDS
+STATISTICS:
+  107 instructions generated
+  71 registers used
+  1281368 instructions executed
+
+
+Extras:
+------
+	The extra features can be tested by running extra.w in "Makefile" or with command ./antlr3 camle extra.w
+	
+	Language features:
+		
+	repeat-until loops
+
+		In addition to the core language features I have implemented repeat loops which iterates through the program until the condition becomes false. An example of this can be found in "extra.w" file.
+			repeat 					(REPEAT)		
+			until 					(UNTIL)	
+
+	for loops
+
+		In addition to the core language features I have also implemented for loops which means that the program iterates trough the commands inside the for loop always incrementing the variable which keeps track of the current round by any given number. Examples of this can be found in "extra.w" file.
+			for                     (FOR)
+		
+
+	Operators:
+
+		integer division 				(DEVIDE)
+		bigger or equal 				(BOREQUAL) 
+		smaller							(SMALLER)		 
+		bigger 							(BIGGER)
+		exclusive or					(XOR)
+		not equals 						(NOTEQUAL)	
+
+		Examples can be fiund in "extra.w" file.
+
+	Precomputation also called peephole optimization:
+
+		If there are simple expressions which contain only an operator or a constant, instead of putting them in the tree as leaves the program only puts the result of the operation in the tree. This way we can save space and computation time.
+		For example if the input is write(2 + 3) the program creates a tree containing "write" "5" instead of "write" "+" "2" "3".
+
+	Register optimisation:
+
+		I used a variable count, when I allocated a new register "count" was incremented, if the program no longer needed that register it was reused, by decrementing "count".
+
+Hours spent on extra features:
+------------------------------
+
+6-7 hours 
+
